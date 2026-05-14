@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ateliê Verdanza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf7f2;
+      --dark-green: #1e2c1a;
+      --mid-green: #3a5435;
+      --light-green: #6b8f5e;
+      --text-dark: #2a2a22;
+      --text-mid: #5a5a4a;
+      --text-light: #8a8a7a;
+      --border: #d8d0c0;
+      --accent: #c8a96e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--warm-white);
+      color: var(--text-dark);
+      font-weight: 300;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--warm-white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--text-mid);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--dark-green); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+    }
+
+    .nav-search input {
+      border: none;
+      background: transparent;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      color: var(--text-mid);
+      outline: none;
+      width: 120px;
+    }
+
+    .nav-search svg { color: var(--text-light); }
+
+    .nav-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-mid);
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .nav-icon:hover { color: var(--dark-green); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(30,44,26,0.15), rgba(30,44,26,0.5));
+    }
+
+    .hero-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 48px 64px;
+    }
+
+    .hero-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.2;
+      max-width: 520px;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 64px 64px;
+    }
+
+    .section-header {
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: var(--text-dark);
+    }
+
+    .section-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-top: 4px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .product-card {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-card-img {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--cream);
+    }
+
+    .product-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-card-img img {
+      transform: scale(1.04);
+    }
+
+    .add-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--dark-green);
+      color: #fff;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+      z-index: 2;
+    }
+
+    .add-btn:hover {
+      background: var(--mid-green);
+      transform: scale(1.1);
+    }
+
+    .product-info {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .product-name {
+      font-size: 0.85rem;
+      color: var(--text-dark);
+    }
+
+    .product-price {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      white-space: nowrap;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 64px;
+    }
+
+    /* ── BRAND BANNER ── */
+    .brand-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 340px;
+    }
+
+    .brand-banner-img {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-banner-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-overlay-card {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: var(--warm-white);
+      padding: 20px 24px;
+      border-radius: 6px;
+      max-width: 220px;
+    }
+
+    .brand-overlay-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .brand-overlay-card p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    .brand-banner-content {
+      background: var(--cream);
+      padding: 56px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light-green);
+      margin-bottom: 14px;
+    }
+
+    .brand-banner-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+    }
+
+    .brand-banner-content p {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-item h5 {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--dark-green);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-item h5::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--light-green);
+    }
+
+    .feature-item p {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-bottom: 0;
+      padding-left: 14px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--warm-white);
+      border-top: 1px solid var(--border);
+      padding: 48px 64px 24px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand p {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .footer-socials a {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .footer-socials a:hover {
+      background: var(--dark-green);
+      color: #fff;
+      border-color: var(--dark-green);
+    }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--text-dark); }
+
+    .footer-col address {
+      font-style: normal;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.72rem;
+      color: var(--text-light);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-bottom-links a:hover { color: var(--text-dark); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--dark-green);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: all 0.35s ease;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.22s; }
+    .delay-3 { animation-delay: 0.34s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-search { display: none; }
+      .section { padding: 48px 24px; }
+      .divider { margin: 0 24px; }
+      .product-grid { grid-template-columns: 1fr 1fr; }
+      .brand-banner { grid-template-columns: 1fr; }
+      .brand-banner-content { padding: 40px 24px; }
+      footer { padding: 40px 24px 20px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .hero-text { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Ateliê verdanza</a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">Catálogo</a></li>
+    <li><a href="#">Sobre</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="nav-search">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Procurar..." />
+    </div>
+    <button class="nav-icon" title="Carrinho">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    </button>
+    <button class="nav-icon" title="Conta" onclick="window.location.href='login.html'">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80" alt="Plantas na prateleira" />
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <h1 class="fade-up">Traga a beleza da natureza para dentro do seu lar</h1>
+  </div>
+</section>
+
+<!-- COLEÇÃO PARA VOCÊ -->
+<section class="section">
+  <div class="section-header fade-up delay-1">
+    <h2 class="section-title">Coleção para você</h2>
+    <p class="section-subtitle">Cuidadosamente cultivadas e selecionadas para você. Cada exemplar é escolhido por sua vitalidade e forma arquitetônica única.</p>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card fade-up delay-1">
+      <div class="product-card-img">
+        <img src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?w=600&q=80" alt="Begônia maculata" />
+        <button class="add-btn" onclick="addToCart('Begônia maculata')">+</button>
+      </div>
+      <div class="product-info">
+        <span class="product-name">Begônia maculata</span>
+        <span class="product-price">R$ 150,00</span>
+      </div>
+    </div>
+
+    <div class="product-card fade-up delay-2">
+      <div class="product-card-img">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Costela de Adão" />
+        <button class="add-btn" onclick="addToCart('Costela de Adão')">+</button>
+      </div>
+      <div class="product-info">
+        <span class="product-name">Costela de Adão</span>
+        <span class="product-price">R$ 200,00</span>
+      </div>
+    </div>
+
+    <div class="product-card fade-up delay-3">
+      <div class="product-card-img">
+        <img src="https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=600&q=80" alt="Suculenta" />
+        <button class="add-btn" onclick="addToCart('Suculenta')">+</button>
+      </div>
+      <div class="product-info">
+        <span class="product-name">Suculenta</span>
+        <span class="product-price">R$ 50,00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- COLEÇÃO DE ARRANJOS -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Coleção de arranjos</h2>
+    <p class="section-subtitle">Flores escolhido com carinho para transformar momentos em memórias.</p>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-card-img">
+        <img src="https://images.unsplash.com/photo-1487530811015-780fe24fb5e9?w=600&q=80" alt="Buquê de Astromélias rosa" />
+        <button class="add-btn" onclick="addToCart('Buquê de Astromélias rosa')">+</button>
+      </div>
+      <div class="product-info">
+        <span class="product-name">Buquê de Astromélias rosa</span>
+        <span class="product-price">R$ 319,90</span>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <img src="https://images.unsplash.com/photo-1490750967868-88df5691cc27?w=600&q=80" alt="Mini Vaso de Margaridas" />
+        <button class="add-btn" onclick="addToCart('Mini Vaso de Margaridas')">+</button>
+      </div>
+      <div class="product-info">
+        <span class="product-name">Mini Vaso de Margaridas</span>
+        <span class="product-price">R$ 85,00</span>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80" alt="Buquê de Astromélias Brancas" />
+        <button class="add-btn" onclick="addToCart('Buquê de Astromélias Brancas')">+</button>
+      </div>
+      <div class="product-info">
+        <span class="product-name">Buquê de Astromélias Brancas</span>
+        <span class="product-price">R$ 159,00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND BANNER -->
+<section class="brand-banner">
+  <div class="brand-banner-img">
+    <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80" alt="Cuidado Sustentável" />
+    <div class="brand-overlay-card">
+      <h4>Cuidado Sustentável</h4>
+      <p>Suas plantas crescem mais fortes utilizando técnicas orgânicas e a gestão consciente da água.</p>
+    </div>
+  </div>
+
+  <div class="brand-banner-content">
+    <p class="eyebrow">O caminho verdanza</p>
+    <h2>Respeitando os Ritmos da Natureza</h2>
+    <p>Acreditamos que trazer a natureza para dentro de casa deve ser um ato de atenção plena. Nossas plantas são enviadas e embaladas a tempo de garantir que as suas plantas prosperem por muitos anos.</p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <h5>Totalmente artesanal</h5>
+        <p>Plantas especiais com processos prontos no local que compartilham nosso compromisso com a biodiversidade.</p>
+      </div>
+      <div class="feature-item">
+        <h5>Consultor especializado</h5>
+        <p>Cada envio é uma obra de arte viva e cada planta é produzida em nossa estufa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Ateliê verdanza</h3>
+      <p>Compartilhando um futuro mais verde, uma folha de cada vez. Junte-se a nós em nossa jornada de orgânicos.</p>
+      <div class="footer-socials">
+        <a href="#" title="Instagram">ig</a>
+        <a href="#" title="Facebook">fb</a>
+        <a href="#" title="Pinterest">pt</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Catálogo</a></li>
+        <li><a href="#">Sobre</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Fale conosco</h4>
+      <address>
+        Bairro Jorge, Rua 40<br />
+        Piso 4º, Rio 12<br />
+        Seg a Sab, 10h às 18h
+      </address>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2024 Ateliê verdanza. Todos os direitos reservados.</p>
+    <div class="footer-bottom-links">
+      <a href="login.html">Termos de Serviço</a>
+      <a href="#">Formatos de Páginas</a>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  function addToCart(name) {
+    const toast = document.getElementById('toast');
+    toast.textContent = `"${name}" adicionado ao carrinho`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  // Intersection observer for fade-up on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.product-card, .section-header').forEach(el => {
+    el.style.opacity = '0';
+    el.style.animation = 'fadeUp 0.55s ease forwards paused';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

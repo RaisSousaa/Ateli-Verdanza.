@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrinho — Ateliê Verdanza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf7f2;
+      --dark-green: #1e2c1a;
+      --mid-green: #3a5435;
+      --light-green: #6b8f5e;
+      --text-dark: #2a2a22;
+      --text-mid: #5a5a4a;
+      --text-light: #8a8a7a;
+      --border: #d8d0c0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--warm-white);
+      color: var(--text-dark);
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--warm-white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      color: var(--text-mid);
+      text-decoration: none;
+      text-transform: capitalize;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--dark-green); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-mid);
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-icon:hover { color: var(--dark-green); }
+
+    .cart-badge {
+      position: absolute;
+      top: -6px;
+      right: -7px;
+      background: var(--dark-green);
+      color: #fff;
+      font-size: 0.6rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      flex: 1;
+      padding: 48px 48px 64px;
+    }
+
+    h1.page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 36px;
+    }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ── CART ITEMS ── */
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cart-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .cart-item:nth-child(2) { animation-delay: 0.1s; }
+
+    .cart-item-img {
+      width: 88px;
+      height: 88px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--cream);
+    }
+
+    .cart-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .cart-item-category {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    .cart-item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 14px;
+    }
+
+    .cart-item-price {
+      font-size: 0.92rem;
+      font-weight: 400;
+      color: var(--text-dark);
+    }
+
+    /* Qty controls */
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-mid);
+      font-size: 1rem;
+      line-height: 1;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+      padding: 0;
+    }
+
+    .qty-btn:hover { color: var(--dark-green); }
+    .qty-btn:disabled { color: var(--border); cursor: not-allowed; }
+
+    .qty-value {
+      font-size: 0.85rem;
+      min-width: 14px;
+      text-align: center;
+      color: var(--text-dark);
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .remove-btn:hover { color: #c0392b; }
+
+    /* ── RECOMMENDED ── */
+    .recommended {
+      margin-top: 40px;
+    }
+
+    .recommended h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 190px);
+      gap: 20px;
+    }
+
+    .rec-card {
+      cursor: pointer;
+    }
+
+    .rec-card-img {
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: var(--cream);
+      margin-bottom: 10px;
+    }
+
+    .rec-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .rec-card:hover .rec-card-img img { transform: scale(1.05); }
+
+    .rec-card-name {
+      font-size: 0.82rem;
+      color: var(--text-dark);
+      margin-bottom: 3px;
+    }
+
+    .rec-card-price {
+      font-size: 0.78rem;
+      color: var(--text-light);
+    }
+
+    /* ── SUMMARY SIDEBAR ── */
+    .summary-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .summary-box {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 24px;
+    }
+
+    .summary-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.83rem;
+      color: var(--text-mid);
+      margin-bottom: 10px;
+    }
+
+    .summary-row.discount { color: var(--light-green); }
+
+    .summary-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 16px 0;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .summary-total span:first-child {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+    }
+
+    .summary-total span:last-child {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    /* Coupon */
+    .coupon-row {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+    }
+
+    .coupon-input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      padding: 9px 12px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      background: #fff;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .coupon-input:focus { border-color: var(--dark-green); }
+
+    .coupon-btn {
+      padding: 9px 14px;
+      background: var(--dark-green);
+      color: #fff;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .coupon-btn:hover { background: var(--mid-green); }
+
+    .coupon-msg {
+      font-size: 0.72rem;
+      margin-top: 6px;
+      min-height: 14px;
+    }
+
+    .coupon-msg.ok  { color: var(--light-green); }
+    .coupon-msg.err { color: #c0392b; }
+
+    /* Buttons */
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: var(--dark-green);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 10px;
+    }
+
+    .btn-primary:hover { background: var(--mid-green); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 13px;
+      background: transparent;
+      color: var(--text-dark);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--dark-green);
+      background: var(--warm-white);
+    }
+
+    /* Help box */
+    .help-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .help-box:hover { border-color: var(--dark-green); }
+
+    .help-box-text h4 {
+      font-size: 0.83rem;
+      font-weight: 400;
+      margin-bottom: 3px;
+    }
+
+    .help-box-text p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      display: none;
+    }
+
+    .empty-state svg { color: var(--text-light); margin-bottom: 16px; }
+    .empty-state h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .empty-state p { font-size: 0.82rem; color: var(--text-light); margin-bottom: 24px; }
+    .empty-state a {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--dark-green);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      padding: 48px 48px 20px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1.5fr;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+
+    .footer-brand h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand p {
+      font-size: 0.77rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .footer-col h4 {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--text-dark); }
+
+    .newsletter-row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .newsletter-row input {
+      flex: 1;
+      border: none;
+      padding: 10px 14px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      outline: none;
+      background: transparent;
+    }
+
+    .newsletter-row button {
+      background: none;
+      border: none;
+      padding: 10px 14px;
+      cursor: pointer;
+      color: var(--text-mid);
+      transition: color 0.2s;
+    }
+
+    .newsletter-row button:hover { color: var(--dark-green); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.7rem;
+      color: var(--text-light);
+    }
+
+    .footer-icons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-icons a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-icons a:hover { color: var(--text-dark); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--dark-green);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.3s ease;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      main { padding: 32px 20px 48px; }
+      .cart-layout { grid-template-columns: 1fr; }
+      .summary-col { order: -1; }
+      footer { padding: 36px 20px 16px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .rec-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Ateliê verdanza</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="catalogo.html">Catálogo</a></li>
+    <li><a href="#">Sobre</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-icon" title="Carrinho">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-badge" id="nav-badge">2</span>
+    </button>
+    <button class="nav-icon" title="Conta" onclick="window.location.href='login.html'">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+  <h1 class="page-title">Seu Carrinho</h1>
+
+  <!-- EMPTY STATE -->
+  <div class="empty-state" id="empty-state">
+    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <h3>Seu carrinho está vazio</h3>
+    <p>Adicione plantas e arranjos para continuar.</p>
+    <a href="catalogo.html">Ver catálogo</a>
+  </div>
+
+  <div class="cart-layout" id="cart-layout">
+    <!-- LEFT COL -->
+    <div>
+      <div class="cart-items" id="cart-items">
+        <!-- rendered by JS -->
+      </div>
+
+      <!-- RECOMMENDED -->
+      <div class="recommended">
+        <h2>Recomendado para você</h2>
+        <div class="rec-grid">
+          <div class="rec-card" onclick="addRec('Monstera Albo Variegata', 85)">
+            <div class="rec-card-img">
+              <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=400&q=80" alt="Monstera Albo Variegata" />
+            </div>
+            <p class="rec-card-name">Monstera Albo Variegata</p>
+            <p class="rec-card-price">R$ 85,00</p>
+          </div>
+          <div class="rec-card" onclick="addRec('Peperomia Melancia', 65)">
+            <div class="rec-card-img">
+              <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=400&q=80" alt="Peperomia Melancia" />
+            </div>
+            <p class="rec-card-name">Peperomia Melancia</p>
+            <p class="rec-card-price">R$ 65,00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COL -->
+    <div class="summary-col">
+      <!-- Summary box -->
+      <div class="summary-box">
+        <h3>Resumo do Pedido</h3>
+
+        <!-- Coupon -->
+        <div class="coupon-row">
+          <input class="coupon-input" type="text" id="coupon-input" placeholder="Código de desconto" />
+          <button class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
+        </div>
+        <p class="coupon-msg" id="coupon-msg"></p>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="subtotal-val">R$ 434,00</span>
+        </div>
+        <div class="summary-row discount" id="discount-row" style="display:none">
+          <span id="discount-label">Desconto (FLORA10)</span>
+          <span id="discount-val">- R$ 43,40</span>
+        </div>
+
+        <hr class="summary-divider" />
+
+        <div class="summary-total">
+          <span>Total</span>
+          <span id="total-val">R$ 434,00</span>
+        </div>
+
+        <button class="btn-primary" onclick="checkout()">
+          Finalizar Pedido
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn-secondary" onclick="window.location.href='catalogo.html'">Continuar Comprando</button>
+      </div>
+
+      <!-- Help -->
+      <div class="help-box" onclick="alert('Atendimento em breve!')">
+        <div class="help-box-text">
+          <h4>Precisa de ajuda?</h4>
+          <p>Fale com um consultor floral</p>
+        </div>
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Verdant Flora</h3>
+      <p>Cultivando beleza e harmonia através da<br />arte botânica e curadoria excepcional.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Atendimento</h4>
+      <ul>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Institucional</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Workshops</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <div class="newsletter-row">
+        <input type="email" placeholder="Seu e-mail" />
+        <button title="Assinar">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2024 Verdant Flora Conservatory. All rights reserved.</p>
+    <div class="footer-icons">
+      <a href="#" title="Pagamentos">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      </a>
+      <a href="#" title="Segurança">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ── STATE ── */
+  let cart = [
+    { id: 1, name: 'Espada de São Jorge', category: 'Plantas', price: 189, qty: 1,
+      img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80' },
+    { id: 2, name: 'Samambaia',           category: 'Plantas', price: 245, qty: 1,
+      img: 'https://images.unsplash.com/photo-1574684891174-df6b02ab38d7?w=200&q=80' },
+  ];
+
+  let discountPct = 0;
+  let discountCode = '';
+
+  const COUPONS = { 'FLORA10': 10, 'VERDE15': 15, 'PLANTA20': 20 };
+
+  /* ── RENDER ── */
+  function fmt(n) {
+    return 'R$ ' + n.toFixed(2).replace('.', ',');
+  }
+
+  function render() {
+    const container = document.getElementById('cart-items');
+    const layout    = document.getElementById('cart-layout');
+    const empty     = document.getElementById('empty-state');
+    const badge     = document.getElementById('nav-badge');
+
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+    badge.textContent = totalQty;
+
+    if (cart.length === 0) {
+      layout.style.display = 'none';
+      empty.style.display  = 'block';
+      return;
+    }
+
+    layout.style.display = '';
+    empty.style.display  = 'none';
+
+    container.innerHTML = cart.map(item => `
+      <div class="cart-item" id="item-${item.id}">
+        <div class="cart-item-img">
+          <img src="${item.img}" alt="${item.name}" />
+        </div>
+        <div class="cart-item-info">
+          <p class="cart-item-name">${item.name}</p>
+          <p class="cart-item-category">${item.category}</p>
+        </div>
+        <div class="cart-item-right">
+          <span class="cart-item-price">${fmt(item.price * item.qty)}</span>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty(${item.id}, -1)" ${item.qty <= 1 ? 'disabled' : ''}>
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <span class="qty-value">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <button class="remove-btn" onclick="removeItem(${item.id})">Remover</button>
+        </div>
+      </div>
+    `).join('');
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const discount = subtotal * (discountPct / 100);
+    const total    = subtotal - discount;
+
+    document.getElementById('subtotal-val').textContent = fmt(subtotal);
+
+    const discRow = document.getElementById('discount-row');
+    if (discountPct > 0) {
+      discRow.style.display = 'flex';
+      document.getElementById('discount-label').textContent = `Desconto (${discountCode})`;
+      document.getElementById('discount-val').textContent   = `- ${fmt(discount)}`;
+    } else {
+      discRow.style.display = 'none';
+    }
+
+    document.getElementById('total-val').textContent = fmt(total);
+  }
+
+  /* ── ACTIONS ── */
+  function changeQty(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.qty = Math.max(1, item.qty + delta);
+    render();
+  }
+
+  function removeItem(id) {
+    const el = document.getElementById(`item-${id}`);
+    if (el) {
+      el.style.transition = 'opacity 0.3s, transform 0.3s';
+      el.style.opacity    = '0';
+      el.style.transform  = 'translateX(20px)';
+      setTimeout(() => {
+        cart = cart.filter(i => i.id !== id);
+        render();
+      }, 300);
+    }
+  }
+
+  function applyCoupon() {
+    const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+    const msg  = document.getElementById('coupon-msg');
+
+    if (COUPONS[code]) {
+      discountPct  = COUPONS[code];
+      discountCode = code;
+      msg.textContent = `Cupom "${code}" aplicado! ${discountPct}% de desconto.`;
+      msg.className   = 'coupon-msg ok';
+      updateSummary();
+    } else {
+      msg.textContent = 'Cupom inválido ou expirado.';
+      msg.className   = 'coupon-msg err';
+    }
+  }
+
+  function addRec(name, price) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({
+        id: Date.now(), name, category: 'Plantas', price,
+        qty: 1,
+        img: name === 'Monstera Albo Variegata'
+          ? 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=200&q=80'
+          : 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=200&q=80'
+      });
+    }
+    render();
+    showToast(`"${name}" adicionado ao carrinho`);
+  }
+
+  function checkout() {
+    showToast('Redirecionando para o pagamento…');
+    setTimeout(() => alert('Checkout em breve! 🌿'), 1200);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window._tt);
+    window._tt = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  /* Allow Enter on coupon field */
+  document.getElementById('coupon-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') applyCoupon();
+  });
+
+  /* Init */
+  render();
+</script>
+</body>
+</html>

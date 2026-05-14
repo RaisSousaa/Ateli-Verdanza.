@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verdant Flora - Monstera Deliciosa</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+        }
+
+        body {
+            background-color: #fdfbf7;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            display: table;
+            width: 100%;
+            padding: 20px 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            display: table-cell;
+            font-size: 24px;
+            font-weight: bold;
+            width: 30%;
+        }
+
+        nav {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-family: sans-serif;
+        }
+
+        nav a.active {
+            border-bottom: 1px solid #000;
+        }
+
+        .header-icons {
+            display: table-cell;
+            text-align: right;
+            width: 30%;
+            vertical-align: middle;
+        }
+
+        .header-icons span {
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .product-container {
+            display: table;
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px auto;
+            border-collapse: separate;
+            border-spacing: 40px 0;
+        }
+
+        .image-gallery {
+            display: table-cell;
+            width: 100px;
+            vertical-align: top;
+        }
+
+        .thumb {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .main-image {
+            display: table-cell;
+            width: 500px;
+            vertical-align: top;
+        }
+
+        .main-image-placeholder {
+            width: 100%;
+            background-color: #e9e2d5;
+            border-radius: 12px;
+            height: 550px;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Simulação da planta no centro */
+        .plant-illustration {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -150px;
+            width: 300px;
+            height: 400px;
+            background: #2d4a22; /* Cor de folha */
+            border-radius: 150px 150px 0 0;
+        }
+
+        .product-details {
+            display: table-cell;
+            vertical-align: top;
+            padding-left: 20px;
+        }
+
+        .product-title {
+            font-size: 42px;
+            margin-bottom: 5px;
+            font-weight: normal;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #666;
+            float: right;
+            margin-top: 15px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #e0ece0;
+            color: #2d5a27;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .reviews {
+            margin-left: 10px;
+            font-size: 13px;
+            color: #666;
+            font-family: sans-serif;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 40px;
+            font-style: italic;
+            max-width: 400px;
+        }
+
+        .actions {
+            margin-top: 50px;
+        }
+
+        .quantity-selector {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 25px;
+            margin-right: 20px;
+        }
+
+        .quantity-selector button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .quantity-selector span {
+            font-family: sans-serif;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        .add-to-cart {
+            background: #0a1f14;
+            color: white;
+            border: none;
+            padding: 15px 80px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: opacity 0.3s;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f5f3ef;
+            padding: 60px 40px;
+            margin-top: 100px;
+            border-top: 1px solid #e0ddd7;
+        }
+
+        .footer-grid {
+            display: table;
+            width: 100%;
+        }
+
+        .footer-col {
+            display: table-cell;
+            width: 25%;
+            vertical-align: top;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-col p, .footer-col ul {
+            font-size: 13px;
+            color: #555;
+            font-family: sans-serif;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #333;
+            background: transparent;
+            padding: 10px 0;
+            outline: none;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 60px;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Verdant Flora</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#" class="active">Catálogo</a>
+            <a href="#">Sobre</a>
+        </nav>
+        <div class="header-icons">
+            <span>🛒</span>
+            <span>👤</span>
+        </div>
+    </header>
+
+    <div class="product-container">
+        <!-- Miniaturas -->
+        <div class="image-gallery">
+            <div class="thumb"></div>
+            <div class="thumb"></div>
+        </div>
+
+        <!-- Imagem Principal -->
+        <div class="main-image">
+            <div class="main-image-placeholder">
+                <!-- Representação visual simplificada da Monstera -->
+                <div style="background-color: #d28c5a; width: 200px; height: 180px; position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); border-radius: 50% 50% 40% 40%;"></div>
+            </div>
+        </div>
+
+        <!-- Detalhes do Produto -->
+        <div class="product-details">
+            <span class="price">$85.00</span>
+            <h1 class="product-title">Monstera Deliciosa</h1>
+            
+            <div>
+                <span class="status-badge">In Stock</span>
+                <span class="reviews">★★★★★ (42 reviews)</span>
+            </div>
+
+            <p class="description">
+                Known as the "Swiss Cheese Plant," this sculptural masterpiece transforms any room into a lush sanctuary. 
+                Its iconic fenestrations and deep emerald hue offer a timeless architectural presence.
+            </p>
+
+            <div class="actions">
+                <div class="quantity-selector">
+                    <button onclick="changeQty(-1)">−</button>
+                    <span id="qty">1</span>
+                    <button onclick="changeQty(1)">+</button>
+                </div>
+                <button class="add-to-cart" onclick="alert('Adicionado ao carrinho!')">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Verdant Flora</h4>
+                <p style="padding-right: 20px;">Curating the finest botanical wonders for the modern sanctuary. From rare species to artisan vessels.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li>Workshops</li>
+                    <li>Plant Consultations</li>
+                    <li>Sustainability</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Care</h4>
+                <ul>
+                    <li>Shipping</li>
+                    <li>Returns</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Join our circle for seasonal care tips and early collection access.</p>
+                <div style="position: relative;">
+                    <input type="email" class="newsletter-input" placeholder="Email Address">
+                    <span style="position: absolute; right: 0; top: 10px; cursor: pointer;">→</span>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2024 Verdant Flora Conservatory. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        function changeQty(val) {
+            const qtyElement = document.getElementById('qty');
+            let currentQty = parseInt(qtyElement.innerText);
+            currentQty += val;
+            if (currentQty < 1) currentQty = 1;
+            qtyElement.innerText = currentQty;
+        }
+    </script>
+</body>
+</html>
