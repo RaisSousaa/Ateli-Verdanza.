@@ -1,374 +1,503 @@
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verdant Flora - Monstera Deliciosa</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Georgia', serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monstera Deliciosa — Ateliê Verdanza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-global.css" />
+  <style>
+    /* ── MAIN ── */
+    main {
+      padding: 48px 64px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
 
-        body {
-            background-color: #fdfbf7;
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
 
-        /* Header */
-        header {
-            display: table;
-            width: 100%;
-            padding: 20px 40px;
-            border-bottom: 1px solid #eee;
-        }
+    /* ── GALERIA DE IMAGENS ── */
+    .product-gallery {
+      display: flex;
+      gap: 16px;
+    }
 
-        .logo {
-            display: table-cell;
-            font-size: 24px;
-            font-weight: bold;
-            width: 30%;
-        }
+    .gallery-thumbs {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-        nav {
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-        }
+    .gallery-thumb {
+      width: 80px;
+      height: 100px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--cream);
+      transition: border-color 0.2s;
+    }
 
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-            font-family: sans-serif;
-        }
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        nav a.active {
-            border-bottom: 1px solid #000;
-        }
+    .gallery-thumb:hover,
+    .gallery-thumb.active {
+      border-color: var(--dark-green);
+    }
 
-        .header-icons {
-            display: table-cell;
-            text-align: right;
-            width: 30%;
-            vertical-align: middle;
-        }
+    .gallery-main {
+      flex: 1;
+    }
 
-        .header-icons span {
-            margin-left: 15px;
-            cursor: pointer;
-        }
+    .gallery-main-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--cream);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        /* Main Content */
-        .product-container {
-            display: table;
-            width: 100%;
-            max-width: 1200px;
-            margin: 40px auto;
-            border-collapse: separate;
-            border-spacing: 40px 0;
-        }
+    .gallery-main-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        .image-gallery {
-            display: table-cell;
-            width: 100px;
-            vertical-align: top;
-        }
+    /* ── INFORMAÇÕES DO PRODUTO ── */
+    .product-info {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .thumb {
-            width: 80px;
-            height: 80px;
-            background-color: #ddd;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            overflow: hidden;
-            cursor: pointer;
-        }
+    .product-header {
+      margin-bottom: 24px;
+    }
 
-        .thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .product-title {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
 
-        .main-image {
-            display: table-cell;
-            width: 500px;
-            vertical-align: top;
-        }
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
 
-        .main-image-placeholder {
-            width: 100%;
-            background-color: #e9e2d5;
-            border-radius: 12px;
-            height: 550px;
-            display: block;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Simulação da planta no centro */
-        .plant-illustration {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            margin-left: -150px;
-            width: 300px;
-            height: 400px;
-            background: #2d4a22; /* Cor de folha */
-            border-radius: 150px 150px 0 0;
-        }
+    .stars {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
 
-        .product-details {
-            display: table-cell;
-            vertical-align: top;
-            padding-left: 20px;
-        }
+    .review-count {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
 
-        .product-title {
-            font-size: 42px;
-            margin-bottom: 5px;
-            font-weight: normal;
-        }
+    .product-price {
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 24px;
+    }
 
-        .price {
-            font-size: 24px;
-            color: #666;
-            float: right;
-            margin-top: 15px;
-        }
+    .price-current {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
 
-        .status-badge {
-            display: inline-block;
-            background: #e0ece0;
-            color: #2d5a27;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-family: sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
+    .price-original {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      text-decoration: line-through;
+    }
 
-        .reviews {
-            margin-left: 10px;
-            font-size: 13px;
-            color: #666;
-            font-family: sans-serif;
-        }
+    .status-badge {
+      display: inline-block;
+      background: var(--cream);
+      color: var(--dark-green);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
 
-        .description {
-            font-size: 16px;
-            color: #444;
-            margin-bottom: 40px;
-            font-style: italic;
-            max-width: 400px;
-        }
+    .product-description {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
 
-        .actions {
-            margin-top: 50px;
-        }
+    /* ── SELETOR DE QUANTIDADE E CARRINHO ── */
+    .product-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
 
-        .quantity-selector {
-            display: inline-block;
-            background: #f0f0f0;
-            padding: 10px 15px;
-            border-radius: 25px;
-            margin-right: 20px;
-        }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      background: var(--cream);
+      border-radius: 6px;
+      overflow: hidden;
+    }
 
-        .quantity-selector button {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 0 10px;
-        }
+    .qty-btn {
+      background: none;
+      border: none;
+      color: var(--text-mid);
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
 
-        .quantity-selector span {
-            font-family: sans-serif;
-            font-weight: bold;
-            padding: 0 10px;
-        }
+    .qty-btn:hover {
+      background: var(--border);
+      color: var(--dark-green);
+    }
 
-        .add-to-cart {
-            background: #0a1f14;
-            color: white;
-            border: none;
-            padding: 15px 80px;
-            border-radius: 25px;
-            font-size: 14px;
-            cursor: pointer;
-            letter-spacing: 2px;
-            transition: opacity 0.3s;
-        }
+    .qty-value {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
 
-        /* Footer */
-        footer {
-            background-color: #f5f3ef;
-            padding: 60px 40px;
-            margin-top: 100px;
-            border-top: 1px solid #e0ddd7;
-        }
+    .btn-add-cart {
+      flex: 1;
+      padding: 14px 32px;
+      background: var(--dark-green);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
 
-        .footer-grid {
-            display: table;
-            width: 100%;
-        }
+    .btn-add-cart:hover {
+      background: var(--mid-green);
+    }
 
-        .footer-col {
-            display: table-cell;
-            width: 25%;
-            vertical-align: top;
-        }
+    .btn-add-cart:active {
+      transform: scale(0.98);
+    }
 
-        .footer-col h4 {
-            font-size: 14px;
-            margin-bottom: 20px;
-            font-family: sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    /* ── CARACTERÍSTICAS DO PRODUTO ── */
+    .product-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 32px;
+      background: var(--cream);
+      border-radius: 8px;
+    }
 
-        .footer-col p, .footer-col ul {
-            font-size: 13px;
-            color: #555;
-            font-family: sans-serif;
-        }
+    .feature {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .footer-col ul {
-            list-style: none;
-        }
+    .feature-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 6px;
+    }
 
-        .footer-col ul li {
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
+    .feature-value {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
 
-        .newsletter-input {
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid #333;
-            background: transparent;
-            padding: 10px 0;
-            outline: none;
-        }
+    /* ── PRODUTOS RECOMENDADOS ── */
+    .recommended {
+      margin-top: 80px;
+      padding-top: 64px;
+      border-top: 1px solid var(--border);
+    }
 
-        .copyright {
-            text-align: center;
-            font-size: 12px;
-            color: #999;
-            margin-top: 60px;
-            font-family: sans-serif;
-        }
-    </style>
+    .recommended h2 {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 32px;
+    }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .rec-card {
+      cursor: pointer;
+    }
+
+    .rec-card-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--cream);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .rec-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .rec-card:hover .rec-card-img img {
+      transform: scale(1.05);
+    }
+
+    .rec-card-name {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .rec-card-price {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 900px) {
+      main {
+        padding: 32px 24px;
+      }
+
+      .product-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .product-title {
+        font-size: 1.8rem;
+      }
+
+      .rec-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      main {
+        padding: 20px 16px;
+      }
+
+      .product-actions {
+        flex-direction: column;
+      }
+
+      .btn-add-cart {
+        width: 100%;
+      }
+
+      .product-features {
+        grid-template-columns: 1fr;
+      }
+
+      .product-title {
+        font-size: 1.5rem;
+      }
+
+      .rec-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">Verdant Flora</div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#" class="active">Catálogo</a>
-            <a href="#">Sobre</a>
-        </nav>
-        <div class="header-icons">
-            <span>🛒</span>
-            <span>👤</span>
+<!-- NAV -->
+<nav></nav>
+
+<!-- MAIN -->
+<main>
+  <div class="product-layout">
+    <!-- GALERIA DE IMAGENS -->
+    <div class="product-gallery">
+      <div class="gallery-thumbs">
+        <div class="gallery-thumb active" onclick="selectImage(0)">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&q=80" alt="Monstera Deliciosa" />
         </div>
-    </header>
-
-    <div class="product-container">
-        <!-- Miniaturas -->
-        <div class="image-gallery">
-            <div class="thumb"></div>
-            <div class="thumb"></div>
+        <div class="gallery-thumb" onclick="selectImage(1)">
+          <img src="https://images.unsplash.com/photo-1549887534-f3e6ad7eae6d?w=100&q=80" alt="Monstera Deliciosa - detalhe" />
         </div>
-
-        <!-- Imagem Principal -->
-        <div class="main-image">
-            <div class="main-image-placeholder">
-                <!-- Representação visual simplificada da Monstera -->
-                <div style="background-color: #d28c5a; width: 200px; height: 180px; position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); border-radius: 50% 50% 40% 40%;"></div>
-            </div>
+      </div>
+      <div class="gallery-main">
+        <div class="gallery-main-img">
+          <img id="main-image" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Monstera Deliciosa" />
         </div>
-
-        <!-- Detalhes do Produto -->
-        <div class="product-details">
-            <span class="price">$85.00</span>
-            <h1 class="product-title">Monstera Deliciosa</h1>
-            
-            <div>
-                <span class="status-badge">In Stock</span>
-                <span class="reviews">★★★★★ (42 reviews)</span>
-            </div>
-
-            <p class="description">
-                Known as the "Swiss Cheese Plant," this sculptural masterpiece transforms any room into a lush sanctuary. 
-                Its iconic fenestrations and deep emerald hue offer a timeless architectural presence.
-            </p>
-
-            <div class="actions">
-                <div class="quantity-selector">
-                    <button onclick="changeQty(-1)">−</button>
-                    <span id="qty">1</span>
-                    <button onclick="changeQty(1)">+</button>
-                </div>
-                <button class="add-to-cart" onclick="alert('Adicionado ao carrinho!')">ADD TO CART</button>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>Verdant Flora</h4>
-                <p style="padding-right: 20px;">Curating the finest botanical wonders for the modern sanctuary. From rare species to artisan vessels.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Services</h4>
-                <ul>
-                    <li>Workshops</li>
-                    <li>Plant Consultations</li>
-                    <li>Sustainability</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Customer Care</h4>
-                <ul>
-                    <li>Shipping</li>
-                    <li>Returns</li>
-                    <li>Privacy Policy</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Newsletter</h4>
-                <p>Join our circle for seasonal care tips and early collection access.</p>
-                <div style="position: relative;">
-                    <input type="email" class="newsletter-input" placeholder="Email Address">
-                    <span style="position: absolute; right: 0; top: 10px; cursor: pointer;">→</span>
-                </div>
-            </div>
+    <!-- INFORMAÇÕES DO PRODUTO -->
+    <div class="product-info">
+      <div class="product-header">
+        <h1 class="product-title">Monstera Deliciosa</h1>
+        
+        <div class="product-rating">
+          <span class="stars">★★★★★</span>
+          <span class="review-count">(42 avaliações)</span>
         </div>
-        <div class="copyright">
-            © 2024 Verdant Flora Conservatory. All rights reserved.
-        </div>
-    </footer>
 
-    <script>
-        function changeQty(val) {
-            const qtyElement = document.getElementById('qty');
-            let currentQty = parseInt(qtyElement.innerText);
-            currentQty += val;
-            if (currentQty < 1) currentQty = 1;
-            qtyElement.innerText = currentQty;
-        }
-    </script>
+        <div class="product-price">
+          <span class="price-current">R$ 189,00</span>
+          <span class="price-original">R$ 245,00</span>
+        </div>
+
+        <span class="status-badge">Em Estoque</span>
+      </div>
+
+      <p class="product-description">
+        Conhecida como a "Planta do Queijo Suíço", esta obra-prima escultural transforma qualquer ambiente em um refúgio exuberante. Suas icônicas fenestras e tom verde esmeralda profundo oferecem uma presença arquitetônica atemporal. Perfeita para trazer elegância natural para sua casa ou escritório.
+      </p>
+
+      <div class="product-actions">
+        <div class="qty-control">
+          <button class="qty-btn" onclick="decreaseQty()">−</button>
+          <span class="qty-value" id="qty">1</span>
+          <button class="qty-btn" onclick="increaseQty()">+</button>
+        </div>
+        <button class="btn-add-cart" onclick="addToCart()">Adicionar ao Carrinho</button>
+      </div>
+
+      <div class="product-features">
+        <div class="feature">
+          <span class="feature-label">Tamanho</span>
+          <span class="feature-value">Médio (30-40 cm)</span>
+        </div>
+        <div class="feature">
+          <span class="feature-label">Luz</span>
+          <span class="feature-value">Indireta, clara</span>
+        </div>
+        <div class="feature">
+          <span class="feature-label">Rega</span>
+          <span class="feature-value">Moderada</span>
+        </div>
+        <div class="feature">
+          <span class="feature-label">Entrega</span>
+          <span class="feature-value">1-2 dias úteis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUTOS RECOMENDADOS -->
+  <section class="recommended">
+    <h2>Você pode gostar</h2>
+    <div class="rec-grid">
+      <div class="rec-card" onclick="window.location.href='catalogo.html'">
+        <div class="rec-card-img">
+          <img src="https://images.unsplash.com/photo-1563241527-3004b2c8e2f7?w=300&q=80" alt="Filodendro" />
+        </div>
+        <div class="rec-card-name">Filodendro</div>
+        <div class="rec-card-price">R$ 156,00</div>
+      </div>
+      <div class="rec-card" onclick="window.location.href='catalogo.html'">
+        <div class="rec-card-img">
+          <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f26f0d?w=300&q=80" alt="Pothos Dourado" />
+        </div>
+        <div class="rec-card-name">Pothos Dourado</div>
+        <div class="rec-card-price">R$ 120,00</div>
+      </div>
+      <div class="rec-card" onclick="window.location.href='catalogo.html'">
+        <div class="rec-card-img">
+          <img src="https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?w=300&q=80" alt="Orquídea" />
+        </div>
+        <div class="rec-card-name">Orquídea</div>
+        <div class="rec-card-price">R$ 180,00</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer></footer>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<!-- COMPONENTES GLOBAIS -->
+<script src="components.js"></script>
+
+<script>
+  let currentQty = 1;
+
+  function increaseQty() {
+    currentQty++;
+    document.getElementById('qty').textContent = currentQty;
+  }
+
+  function decreaseQty() {
+    if (currentQty > 1) {
+      currentQty--;
+      document.getElementById('qty').textContent = currentQty;
+    }
+  }
+
+  function selectImage(index) {
+    const thumbs = document.querySelectorAll('.gallery-thumb');
+    thumbs.forEach(t => t.classList.remove('active'));
+    thumbs[index].classList.add('active');
+
+    const images = [
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+      'https://images.unsplash.com/photo-1549887534-f3e6ad7eae6d?w=600&q=80'
+    ];
+    document.getElementById('main-image').src = images[index];
+  }
+
+  function addToCart() {
+    showToast(`Monstera Deliciosa (${currentQty}x) adicionado ao carrinho`);
+    currentQty = 1;
+    document.getElementById('qty').textContent = currentQty;
+  }
+</script>
 </body>
 </html>

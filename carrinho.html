@@ -5,20 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carrinho — Ateliê Verdanza</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-global.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream: #f5f0e8;
-      --warm-white: #faf7f2;
-      --dark-green: #1e2c1a;
-      --mid-green: #3a5435;
-      --light-green: #6b8f5e;
-      --text-dark: #2a2a22;
-      --text-mid: #5a5a4a;
-      --text-light: #8a8a7a;
-      --border: #d8d0c0;
-    }
 
     html { scroll-behavior: smooth; }
 
@@ -646,23 +634,7 @@
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Ateliê verdanza</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="catalogo.html">Catálogo</a></li>
-    <li><a href="#">Sobre</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="nav-icon" title="Carrinho">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-      <span class="cart-badge" id="nav-badge">2</span>
-    </button>
-    <button class="nav-icon" title="Conta" onclick="window.location.href='login.html'">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    </button>
-  </div>
-</nav>
+<nav></nav>
 
 <!-- MAIN -->
 <main>
@@ -754,56 +726,13 @@
 </main>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <h3>Verdant Flora</h3>
-      <p>Cultivando beleza e harmonia através da<br />arte botânica e curadoria excepcional.</p>
-    </div>
-
-    <div class="footer-col">
-      <h4>Atendimento</h4>
-      <ul>
-        <li><a href="#">Sustainability</a></li>
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Returns</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Institucional</h4>
-      <ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Workshops</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Newsletter</h4>
-      <div class="newsletter-row">
-        <input type="email" placeholder="Seu e-mail" />
-        <button title="Assinar">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2024 Verdant Flora Conservatory. All rights reserved.</p>
-    <div class="footer-icons">
-      <a href="#" title="Pagamentos">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      </a>
-      <a href="#" title="Segurança">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </a>
-    </div>
-  </div>
-</footer>
+<footer></footer>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- COMPONENTES GLOBAIS -->
+<script src="components.js"></script>
 
 <script>
   /* ── STATE ── */
