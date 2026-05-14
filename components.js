@@ -12,7 +12,7 @@ function renderNav() {
     <ul class="nav-links">
       <li><a href="index.html" class="${getCurrentPage() === 'index' ? 'active' : ''}">Home</a></li>
       <li><a href="catalogo.html" class="${getCurrentPage() === 'catalogo' ? 'active' : ''}">Catálogo</a></li>
-      <li><a href="#" class="${getCurrentPage() === 'produto' ? 'active' : ''}">Sobre</a></li>
+      <li><a href="about.html" class="${getCurrentPage() === 'about' ? 'active' : ''}">Sobre</a></li>
     </ul>
     <div class="nav-actions">
       <button class="nav-icon" title="Carrinho" onclick="window.location.href='carrinho.html'">
@@ -51,7 +51,7 @@ function renderFooter() {
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="catalogo.html">Catálogo</a></li>
-          <li><a href="#">Sobre</a></li>
+          <li><a href="about.html">Sobre</a></li>
           <li><a href="#">Contato</a></li>
         </ul>
       </div>
@@ -84,6 +84,7 @@ function getCurrentPage() {
   if (path.includes('index')) return 'index';
   if (path.includes('catalogo')) return 'catalogo';
   if (path.includes('carrinho')) return 'carrinho';
+  if (path.includes('about')) return 'about';
   if (path.includes('produto')) return 'produto';
   if (path.includes('login')) return 'login';
   if (path.includes('admin')) return 'admin';
