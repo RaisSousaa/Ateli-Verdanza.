@@ -43,9 +43,6 @@ function renderFooter() {
         <h3>Ateliê verdanza</h3>
         <p>Compartilhando um futuro mais verde, uma folha de cada vez. Junte-se a nós em nossa jornada de orgânicos.</p>
         <div class="footer-socials">
-          <a href="#" title="Instagram">ig</a>
-          <a href="#" title="Facebook">fb</a>
-          <a href="#" title="Pinterest">pt</a>
         </div>
       </div>
 
