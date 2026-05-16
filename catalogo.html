@@ -212,7 +212,7 @@
 
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 28px 24px;
     }
 
@@ -262,7 +262,7 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: #3a7d44;
+      background: var(--dark-green);
       color: #fff;
       border: none;
       font-size: 1.3rem;
@@ -290,13 +290,14 @@
     }
 
     .product-name {
-      font-size: 0.85rem;
+      font-size: 1.125rem;
       color: var(--text-dark);
       line-height: 1.3;
+      font-weight: 500;
     }
 
     .product-price {
-      font-size: 0.85rem;
+      font-size: 1.25rem;
       color: var(--text-mid);
       white-space: nowrap;
     }
@@ -427,7 +428,7 @@
       border-radius: 4px 0 0 4px;
       padding: 10px 14px;
       font-family: 'Jost', sans-serif;
-      font-size: 0.8rem;
+      font-size: 2rem;
       background: #fff;
       color: var(--text-dark);
       outline: none;
@@ -534,14 +535,6 @@
         <input type="checkbox" value="Flores" onchange="filterProducts()" />
         <span>Flores</span>
       </label>
-      <label class="category-item">
-        <input type="checkbox" value="Vasos" onchange="filterProducts()" />
-        <span>Vasos</span>
-      </label>
-      <label class="category-item">
-        <input type="checkbox" value="Acessórios" onchange="filterProducts()" />
-        <span>Acessórios</span>
-      </label>
     </div>
   </aside>
 </div>
@@ -558,18 +551,18 @@
 <script>
   /* ── DATA ── */
   const allProducts = [
-    { id: 1,  name: 'Begônia maculata',   price: 'R$ 200,00', category: 'Plantas', img: 'https://images.unsplash.com/photo-1512428813834-c702c7702b78?w=600&q=80' },
-    { id: 2,  name: 'Costela de Adão',    price: 'R$ 200,00', category: 'Flores',  img: 'https://images.unsplash.com/photo-1487530811015-780fe24fb5e9?w=600&q=80' },
-    { id: 3,  name: 'Suculenta',          price: 'R$ 50,00',  category: 'Plantas', img: 'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=600&q=80' },
-    { id: 4,  name: 'Buquê',              price: 'R$ 200,00', category: 'Flores',  img: 'https://images.unsplash.com/photo-1490750967868-88df5691cc27?w=600&q=80' },
-    { id: 5,  name: 'Espada São Jorge',   price: 'R$ 200,00', category: 'Plantas', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-    { id: 6,  name: 'Zamiocula',          price: 'R$ 50,00',  category: 'Plantas', img: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80' },
-    { id: 7,  name: 'Begônia maculata',   price: 'R$ 200,00', category: 'Plantas', img: 'https://images.unsplash.com/photo-1512428813834-c702c7702b78?w=600&q=80' },
-    { id: 8,  name: 'Peperômia Melancia', price: 'R$ 200,00', category: 'Plantas', img: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80' },
-    { id: 9,  name: 'Suculenta',          price: 'R$ 50,00',  category: 'Flores',  img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80' },
-    { id: 10, name: 'Orquídea',           price: 'R$ 180,00', category: 'Flores',  img: 'https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?w=600&q=80' },
-    { id: 11, name: 'Vaso Cerâmica',      price: 'R$ 85,00',  category: 'Vasos',   img: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&q=80' },
-    { id: 12, name: 'Mini Cacto',         price: 'R$ 35,00',  category: 'Plantas', img: 'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=600&q=80' },
+    { id: 1,  name: 'Pacova',   price: 'R$ 200,00', category: 'Plantas', img: 'resources/images/8754e248f99b5927f030bced0a93fb36.jpg' },
+    { id: 2,  name: 'Filodendro coração',    price: 'R$ 200,00', category: 'Plantas',  img: 'resources/images/d4354dd73462954ef4c1cdf9c8e30fc1.jpg' },
+    { id: 3,  name: 'Aglaonema',          price: 'R$ 50,00',  category: 'Plantas', img: 'resources/images/c6eb404d8c9fe74cb47da9343739ece4.jpg' },
+    { id: 4,  name: 'Buquê',              price: 'R$ 200,00', category: 'Flores',  img: 'resources/images/f0d31b0b3237e0a5a88f2f86ca38bd6e.jpg' },
+    { id: 5,  name: 'Espada São Jorge',   price: 'R$ 200,00', category: 'Plantas', img: 'resources/images/69a57341354a598f8fdff98b0d7d1ddc.jpg' },
+    { id: 6,  name: 'Jose Buono Fiesta',          price: 'R$ 50,00',  category: 'Plantas', img: 'resources/images/ab7225e0311bb04612106274111969d5.jpg' },
+    { id: 7,  name: 'Lírio da Paz',   price: 'R$ 200,00', category: 'Plantas', img: 'resources/images/90b89e249c82e6dc5cbd5a1f773eaf8c.jpg' },
+    { id: 8,  name: 'Begônia maculata',   price: 'R$ 200,00', category: 'Plantas', img: 'resources/images/f0d31b0b3237e0a5a88f2f86ca38bd6e.jpg' },
+    { id: 9,  name: 'Suculenta',   price: 'R$ 200,00', category: 'Plantas', img: 'resources/images/73284c55cbc5daa50becedac8458858b.jpg' },
+    { id: 10, name: 'Arranjo floral',   price: 'R$ 120,00', category: 'Flores',  img: 'resources/images/arranjo1.jpg' },
+    { id: 11, name: 'Arranjo floral',   price: 'R$ 250,00', category: 'Flores',  img: 'resources/images/e35b38f27e82e78c62aca35e0fc73204.jpg' },
+    { id: 12, name: 'Arranjo floral',   price: 'R$ 90,00',  category: 'Flores',  img: 'resources/images/arranjo3.jpg' },
   ];
 
   const PER_PAGE = 9;
