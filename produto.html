@@ -252,25 +252,22 @@
       font-weight: 500;
     }
 
-    /* ── PRODUTOS RECOMENDADOS ── */
+ /* ── RECOMMENDED ── */
     .recommended {
-      margin-top: 48px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
+      margin-top: 40px;
     }
 
     .recommended h2 {
-      font-family: var(--font-serif);
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
       font-weight: 400;
-      color: var(--text-dark);
       margin-bottom: 20px;
     }
 
     .rec-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(2, 190px);
+      gap: 20px;
     }
 
     .rec-card {
@@ -278,83 +275,31 @@
     }
 
     .rec-card-img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      background: var(--cream);
       border-radius: 8px;
       overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: var(--cream);
       margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-width: 200px;
     }
 
     .rec-card-img img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      transition: transform 0.3s;
-      padding: 6px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
     }
 
-    .rec-card:hover .rec-card-img img {
-      transform: scale(1.05);
-    }
+    .rec-card:hover .rec-card-img img { transform: scale(1.05); }
 
     .rec-card-name {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--text-dark);
-      margin-bottom: 4px;
-      font-weight: 500;
+      margin-bottom: 3px;
     }
 
     .rec-card-price {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: var(--text-light);
-    }
-
-      .product-layout {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-
-      .product-title {
-        font-size: 1.3
-      }
-
-      .product-title {
-        font-size: 1.8rem;
-      }
-
-      .rec-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-    @media (max-width: 560px) {
-      main {
-        padding: 20px 16px;
-      }
-
-      .product-actions {
-        flex-direction: column;
-      }
-
-      .btn-add-cart {
-        width: 100%;
-      }
-
-      .product-features {
-        grid-template-columns: 1fr;
-      }
-
-      .product-title {
-        font-size: 1.5rem;
-      }
-
-      .rec-grid {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
@@ -370,15 +315,15 @@
     <div class="product-gallery">
       <div class="gallery-thumbs">
         <div class="gallery-thumb active" onclick="selectImage(0)">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&q=80" alt="Monstera Deliciosa" />
+          <img src="resources/images/d4354dd73462954ef4c1cdf9c8e30fc1.jpg" alt="Monstera Deliciosa" />
         </div>
         <div class="gallery-thumb" onclick="selectImage(1)">
-          <img src="https://images.unsplash.com/photo-1549887534-f3e6ad7eae6d?w=100&q=80" alt="Monstera Deliciosa - detalhe" />
+          <img src="resources/images/d4354dd73462954ef4c1cdf9c8e30fc1.jpg" alt="Monstera Deliciosa - detalhe" />
         </div>
       </div>
       <div class="gallery-main">
         <div class="gallery-main-img">
-          <img id="main-image" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Monstera Deliciosa" />
+          <img id="main-image" src="resources/images/afb2698dd1e4589ae6499f1c3940453b.jpg" alt="Monstera Deliciosa" />
         </div>
       </div>
     </div>
@@ -386,7 +331,7 @@
     <!-- INFORMAÇÕES DO PRODUTO -->
     <div class="product-info">
       <div class="product-header">
-        <h1 class="product-title">Monstera Deliciosa</h1>
+        <h1 class="product-title">Filodendro coração</h1>
         
         <div class="product-rating">
           <span class="stars">★★★★★</span>
@@ -402,8 +347,7 @@
       </div>
 
       <p class="product-description">
-        Conhecida como a "Planta do Queijo Suíço", esta obra-prima escultural transforma qualquer ambiente em um refúgio exuberante. Suas icônicas fenestras e tom verde esmeralda profundo oferecem uma presença arquitetônica atemporal. Perfeita para trazer elegância natural para sua casa ou escritório.
-      </p>
+        O filodendro-coração (Philodendron hederaceum) é uma planta pendente muito popular, valorizada por suas folhas em forma de coração e fácil cultivo em interiores. Versátil, pode ser usada em prateleiras, vasos suspensos ou tutorada como trepadeira. É nativa da América do Sul e Central.      </p>
 
       <div class="product-actions">
         <div class="qty-control">
@@ -416,16 +360,16 @@
 
       <div class="product-features">
         <div class="feature">
-          <span class="feature-label">Tamanho</span>
-          <span class="feature-value">Médio (30-40 cm)</span>
+          <span class="feature-label">Substrato</span>
+          <span class="feature-value">Rico em matéria orgânica e bem drenável</span>
         </div>
         <div class="feature">
           <span class="feature-label">Luz</span>
-          <span class="feature-value">Indireta, clara</span>
+          <span class="feature-value">Meia-sombra ou luz difusa</span>
         </div>
         <div class="feature">
           <span class="feature-label">Rega</span>
-          <span class="feature-value">Moderada</span>
+          <span class="feature-value">Regue cerca de duas vezes por semana</span>
         </div>
         <div class="feature">
           <span class="feature-label">Entrega</span>
@@ -435,34 +379,27 @@
     </div>
   </div>
 
-  <!-- PRODUTOS RECOMENDADOS -->
-  <section class="recommended">
-    <h2>Você pode gostar</h2>
-    <div class="rec-grid">
-      <div class="rec-card" onclick="window.location.href='catalogo.html'">
-        <div class="rec-card-img">
-          <img src="https://images.unsplash.com/photo-1563241527-3004b2c8e2f7?w=300&q=80" alt="Filodendro" />
+       <!-- RECOMMENDED -->
+      <div class="recommended">
+        <h2>Você também pode gostar</h2>
+        <div class="rec-grid">
+          <div class="rec-card" onclick="addRec('Begônia maculata', 85)">
+            <div class="rec-card-img">
+              <img src="resources/images/f0d31b0b3237e0a5a88f2f86ca38bd6e.jpg" alt="Monstera Albo Variegata" />
+            </div>
+            <p class="rec-card-name">Begônia maculata</p>
+            <p class="rec-card-price">R$ 85,00</p>
+          </div>
+          <div class="rec-card" onclick="addRec('Peperomia Melancia', 65)">
+            <div class="rec-card-img">
+              <img src="resources/images/8754e248f99b5927f030bced0a93fb36.jpg" alt="Peperomia Melancia" />
+            </div>
+            <p class="rec-card-name">Peperomia Melancia</p>
+            <p class="rec-card-price">R$ 65,00</p>
+          </div>
         </div>
-        <div class="rec-card-name">Filodendro</div>
-        <div class="rec-card-price">R$ 156,00</div>
-      </div>
-      <div class="rec-card" onclick="window.location.href='catalogo.html'">
-        <div class="rec-card-img">
-          <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f26f0d?w=300&q=80" alt="Pothos Dourado" />
-        </div>
-        <div class="rec-card-name">Pothos Dourado</div>
-        <div class="rec-card-price">R$ 120,00</div>
-      </div>
-      <div class="rec-card" onclick="window.location.href='catalogo.html'">
-        <div class="rec-card-img">
-          <img src="https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?w=300&q=80" alt="Orquídea" />
-        </div>
-        <div class="rec-card-name">Orquídea</div>
-        <div class="rec-card-price">R$ 180,00</div>
       </div>
     </div>
-  </section>
-</main>
 
 <!-- FOOTER -->
 <footer></footer>

@@ -85,7 +85,7 @@
       right: -7px;
       background: var(--dark-green);
       color: #fff;
-      font-size: 0.6rem;
+      font-size: 1.0rem;
       width: 16px;
       height: 16px;
       border-radius: 50%;
@@ -103,7 +103,7 @@
     h1.page-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 400;
+      font-weight: 600;
       color: var(--text-dark);
       margin-bottom: 36px;
     }
@@ -657,18 +657,18 @@
 
       <!-- RECOMMENDED -->
       <div class="recommended">
-        <h2>Recomendado para você</h2>
+        <h2>Você também pode gostar</h2>
         <div class="rec-grid">
-          <div class="rec-card" onclick="addRec('Monstera Albo Variegata', 85)">
+          <div class="rec-card" onclick="addRec('Begônia maculata', 85)">
             <div class="rec-card-img">
-              <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=400&q=80" alt="Monstera Albo Variegata" />
+              <img src="resources/images/f0d31b0b3237e0a5a88f2f86ca38bd6e.jpg" alt="Monstera Albo Variegata" />
             </div>
-            <p class="rec-card-name">Monstera Albo Variegata</p>
+            <p class="rec-card-name">Begônia maculata</p>
             <p class="rec-card-price">R$ 85,00</p>
           </div>
           <div class="rec-card" onclick="addRec('Peperomia Melancia', 65)">
             <div class="rec-card-img">
-              <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=400&q=80" alt="Peperomia Melancia" />
+              <img src="resources/images/8754e248f99b5927f030bced0a93fb36.jpg" alt="Peperomia Melancia" />
             </div>
             <p class="rec-card-name">Peperomia Melancia</p>
             <p class="rec-card-price">R$ 65,00</p>
@@ -737,10 +737,10 @@
 <script>
   /* ── STATE ── */
   let cart = [
-    { id: 1, name: 'Espada de São Jorge', category: 'Plantas', price: 189, qty: 1,
-      img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80' },
-    { id: 2, name: 'Samambaia',           category: 'Plantas', price: 245, qty: 1,
-      img: 'https://images.unsplash.com/photo-1574684891174-df6b02ab38d7?w=200&q=80' },
+    { id: 1, name: 'Aglaonema', category: 'Plantas', price: 189, qty: 1,
+      img: 'resources/images/3968616e5c964b6cc39dd69bde188030.jpg' },
+    { id: 2, name: 'filodendro coração',           category: 'Plantas', price: 245, qty: 1,
+      img: 'resources/images/d4354dd73462954ef4c1cdf9c8e30fc1.jpg' },
   ];
 
   let discountPct = 0;
