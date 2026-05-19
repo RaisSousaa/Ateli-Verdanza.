@@ -2,6 +2,8 @@ const express = require('express');
 
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');      // ← NOVO
+const clientRoutes = require('./routes/clientRoutes');    // ← NOVO
 
 const { errorMiddleware } = require('./middlewares/errorMiddleware');
 const {
@@ -24,6 +26,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);      // ← NOVO
+app.use('/api/clients', clientRoutes);    // ← NOVO
 
 app.use(errorMiddleware);
 
