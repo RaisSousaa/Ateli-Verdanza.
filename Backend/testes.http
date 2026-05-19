@@ -1,0 +1,75 @@
+### Variável base
+@baseUrl = http://localhost:3001/api
+
+
+### ==========================================
+### 1. CADASTRO
+### ==========================================
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Sthefany Admin",
+  "email": "sthefany@email.com",
+  "password": "12345678"
+}
+
+### ==========================================
+### 2. LOGIN (copia o token da resposta)
+### ==========================================
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "sthefany@email.com",
+  "password": "12345678"
+}
+
+### ==========================================
+### 3. LISTAR PRODUTOS (público)
+### ==========================================
+GET {{baseUrl}}/products
+
+### ==========================================
+### 4. DETALHE DO PRODUTO
+### ==========================================
+GET {{baseUrl}}/products/1
+
+### ==========================================
+### 5. CRIAR PRODUTO (admin)
+### ==========================================
+POST {{baseUrl}}/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdGhlZmFueUBlbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzkxOTkzNjUsImV4cCI6MTc3OTIwMjk2NX0.Vu8znT9N0BkpisSbB4fzHWUdzvm7cPUSvrUDhl1vIiM
+
+{
+  "name": "Samambaia",
+  "description": "Planta pendente exuberante para interiores.",
+  "category": "Plantas",
+  "price": 200.00,
+  "status": "em_estoque",
+  "img": "resources/images/samambaia.jpg"
+}
+
+### ==========================================
+### 6. ATUALIZAR PRODUTO (admin)
+### ==========================================
+PUT {{baseUrl}}/products/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdGhlZmFueUBlbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzkxOTkzNjUsImV4cCI6MTc3OTIwMjk2NX0.Vu8znT9N0BkpisSbB4fzHWUdzvm7cPUSvrUDhl1vIiM
+
+{
+  "price": 120.00
+}
+
+### ==========================================
+### 7. DELETAR PRODUTO (admin)
+### ==========================================
+DELETE {{baseUrl}}/products/13
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdGhlZmFueUBlbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzkxOTkzNjUsImV4cCI6MTc3OTIwMjk2NX0.Vu8znT9N0BkpisSbB4fzHWUdzvm7cPUSvrUDhl1vIiM
+
+### ==========================================
+### 8. PERFIL (autenticado)
+### ==========================================
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzdGhlZmFueUBlbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzkxOTkzNjUsImV4cCI6MTc3OTIwMjk2NX0.Vu8znT9N0BkpisSbB4fzHWUdzvm7cPUSvrUDhl1vIiM

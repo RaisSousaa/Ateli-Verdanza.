@@ -30,6 +30,10 @@ const productSchema = z.object({
     .min(3, 'A imagem do produto deve ser informada.')
 });
 
+// Schema para atualização parcial (todos os campos opcionais)
+const productUpdateSchema = productSchema.partial();
+
 module.exports = {
-  productSchema
+  productSchema,
+  productUpdateSchema
 };

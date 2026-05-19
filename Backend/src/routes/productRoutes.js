@@ -1,5 +1,6 @@
 const express = require('express');
 const { authMiddleware } = require('../middlewares/authMiddleware');
+const { adminMiddleware } = require('../middlewares/adminMiddleware');
 
 const {
   listProducts,
@@ -20,12 +21,12 @@ router.get('/', listProducts);
 router.get('/:id', getProductById);
 
 /*
-  Rotas protegidas:
+  Rotas protegidas (admin):
   Usadas pelo painel administrativo.
-  Exigem JWT.
+  Exigem JWT + role admin.
 */
-router.post('/', authMiddleware, createProduct);
-router.put('/:id', authMiddleware, updateProduct);
-router.delete('/:id', authMiddleware, deleteProduct);
+router.post('/', authMiddleware, adminMiddleware, createProduct);
+router.put('/:id', authMiddleware, adminMiddleware, updateProduct);
+router.delete('/:id', authMiddleware, adminMiddleware, deleteProduct);
 
 module.exports = router;
